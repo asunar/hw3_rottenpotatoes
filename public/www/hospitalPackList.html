@@ -1,0 +1,32 @@
+<!DOCTYPE html> 
+<html> 
+
+<body> 
+    <div id='hospitalPackListPage' data-role="page" data-title="Hospital Pack List">          
+        <div data-role="content" id="hospitalPackListContent">        
+            <ul id=hospitalPackListListView" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b" data-split-icon="plus">
+      <li id="itemsListViewDivider" data-role="list-divider">Hospital Pack List</li>
+      <li>
+      <a href='index.html'>
+          <h3>Toiletries</h3>
+          <p>Tootbrush/paste, deodorant, shampoo, conditioner, contact lens solution, lip balm, hair brush and clips or bands, eye glasses if you wear them</p>
+      </a>
+      <a href="#" class="addItemFromCatalog">Add to your list</a>
+      </li>
+            </ul>                
+        </div><!-- /content -->
+      </div><!-- /page --> 
+
+
+    <script type="text/template" id="catalogTemplate">
+      <a href="index.html">
+      <h3><%= this.model.get('name') %></h3>
+      <p><%= this.model.get('description') %></p>
+    </a>
+      
+      <a href="#" class="addItemLink">Add to your list</a>
+    </script>      
+
+</body>
+</html>
+

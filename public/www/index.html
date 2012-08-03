@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=320; user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Baby Birdie</title>
+
+    <link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
+    <link rel="stylesheet" href="jquery.mobile/jqm-docs.css"/>
+    <script src="json2.js"></script>    
+    <script type="text/javascript" src="jquery.mobile/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="custom_init.js"></script>
+    <script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+    
+    
+    <script type="text/javascript" charset="utf-8" src="modernizr.js"></script>
+    
+
+    <script type="text/javascript" charset="utf-8" src="underscore-min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="backbone-min.js"></script>
+	  <script type="text/javascript" charset="utf-8" src="utility_functions.js"></script>
+    <script src="backbone-localstorage.js"></script>
+
+    
+    <script type="text/javascript" charset="utf-8" src="data/seed_data.js"></script>
+    <script type="text/javascript" charset="utf-8" src="catalog_init.js"></script>    
+    <script type="text/javascript" charset="utf-8" src="about_init.js"></script>
+    <script type="text/javascript" charset="utf-8" src="allItems_init.js"></script>
+    <script type="text/javascript" charset="utf-8" src="addItem_init.js"></script>
+    <script type="text/javascript" charset="utf-8" src="selectItem_init.js"></script>
+    <script type="text/javascript" charset="utf-8" src="allTags_init.js"></script>
+    <script type="text/javascript" charset="utf-8" src="backbonesample.js"></script>
+
+    <style>
+body .ui-li .ui-li-desc {
+ white-space: normal;
+ }
+      
+    </style>
+    
+  </head>
+  <body>
+
+    
+    <div id='aboutPage' data-role="page" data-title="Shopping List">          
+    <div data-role="header" data-theme="b"> 
+        <h1>Baby Birdie</h1>         
+    </div>
+      
+    <div data-role="content" id="content"> 
+            <p>
+            <strong>Default tags</strong>
+            </p>
+            <ul id="listview" data-role="listview" data-inset="true" data-theme="c" data-dividertheme="b">
+            </ul>                
+
+            
+            
+            
+
+        </div><!-- /content -->
+         
+        <fieldset class="ui-grid-a">
+            <div class="ui-block-a"><a href="addItem.html" data-role="button" data-icon="plus">Add Item</a></div>
+            <div class="ui-block-b"><a href="selectItem.html" data-role="button" data-icon="arrow-d" data-iconpos="right">Select Item</a></div>
+            <div class="ui-block-a"><a href="allItems.html" data-role="button" data-icon="grid">All Items</a></div>
+            <div class="ui-block-b"><a href="allTags.html" data-role="button" data-icon="grid">All Tags</a></div>        
+        </fieldset>     
+    </div><!-- /page -->   
+    
+
+    <!-- Templates -->
+    	<script id="listTemplate" type="text/template" >   		
+    <a href="<%= this.model.url%>"  style="padding-top: 0px;">
+      <div class="ui-grid-a">
+        <div class="ui-block-a" style="width: 13%;padding-left: 5px;padding-top:10px">
+          <div data-role="controlgroup" data-type="horizontal">
+            <a data-role="button" href="<%= this.model.mailTo %>"><img src="img/mail.png" /></a>
+            <a data-role="button" href="<%= this.model.sms %>"><img src="img/sms.png"  /></a>
+          </div>
+        </div>
+        <div class="ui-block-b" style="width:85%">
+          <a href="<%= this.model.url%>" class="ui-link-inherit"><%= unescape(this.model.tagName)  %></a>
+        </div>
+      </div><!-- /grid-a -->    
+              
+      <span class="ui-li-count"><%= this.model.tagCount  %></span>
+    </a>
+      
+      
+
+
+      
+      
+      
+      
+      
+      
+    	</script>   
+        
+        <script id="tagListItemTemplate" type="text/template" >   		
+		<li id="listdiv" data-role="list-divider">Tags</li>
+		<% _.each(tags, function(tag) { %>
+    			<input type="checkbox" value="<%= tag.tag %>" <%= tag.checked ? 'checked' : '' %> name="<%=tag.tag %>" id="<%=tag.tag %>" />
+				<label for="<%=tag.tag %>"><%= unescape(tag.tag) %></label>
+		<% }); %>
+        </script>
+
+
+        <script id="addEditItemTemplate" type="text/template" >
+            <label for="itemName">Name</label>
+            <input type="text" name="name" id="itemName" value="<%= this.model.get('name') %>" />
+            <label for="description">Description</label>
+            <textarea name="textarea" id="description"><%= this.model.get('description') %></textarea>
+
+            <div  data-role="fieldcontain">
+              <fieldset data-role="controlgroup" id="tagList">
+             </fieldset>
+            </div>
+
+        <div id="customTagsSection">
+            <label for="itemName">Add your own tags (separated by comma):</label>
+            <input type="text" name="name" id="customTags" value="" />
+          </div>
+
+        <fieldset class="ui-grid-a" style="overflow: true">
+            <div class="ui-block-a"><a href="index.html" id="btnSaveItem" data-role="button" data-theme="b">Save</a></div>
+            <div class="ui-block-b"><a href="index.html" data-role="button">Cancel</a></div>
+        </fieldset>             
+        </script>
+
+
+    <script type="text/template" id="allItemsTemplate">
+      <a href="addItem.html?itemId=<%= this.model.get('id') %>">
+      <h3><%= this.model.get('name') %></h3>
+      <p><%= this.model.get('description') %></p>
+    </a>
+      
+      <a href="#" class="deleteItemLink">Delete Item</a>
+    </script>
+ 
+    <script type="text/template" id="catalogTemplate">
+      <a href="javascript:void(0)" class="addItemFromCatalog">
+        <h3><%= this.model.get('name') %></h3>
+        <p><%= this.model.get('description') %></p>
+      </a>
+      
+    <a href="#" data-role='button' data-icon='<%= this.model.get('added') ? "minus" : "plus" %>' class="addItemFromCatalog">Add to your list</a>
+    </script>
+
+    <script type="text/template" id="selectItemTemplate">
+      <a href="catalog.html?name=<%= this.model.get('name') %>&defaultTag=<%= this.model.get('defaultTag') %>">
+      <h3><%= this.model.get('name') %></h3>
+      <p><%= this.model.get('description') %></p>
+      
+      <p style="margin-top: 10px"><strong>Source: </strong><%= this.model.get('source') %></p>
+      </a>
+    </script>
+        
+</body>
+
+	</script>
+</html>

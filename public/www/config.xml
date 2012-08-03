@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns		= "http://www.w3.org/ns/widgets"
+	xmlns:gap	= "http://phonegap.com/ns/1.0"
+	id		= "N7S6TBB6JH.com.tonostechnology.babybird"
+	version 	= "1.0.1">
+
+	<name>Baby Bird</name>
+
+	<description>
+		An application for busy moms who want to cater to their baby's needs
+	</description>
+
+	<author href="http://www.tonostechnology.com/"
+		email="support@babybirdapp.com">
+		Alper Sunar
+	</author>
+
+    <icon src="icon_57.png" width="57" height="57" />
+    <icon src="icon_72.png" gap:platform="ios" width="72" height="72" />
+    <icon src="icon_114.png" width="114" height="114" />
+
+    
+    <preference name="permissions" value="none"/>
+
+</widget>
+
